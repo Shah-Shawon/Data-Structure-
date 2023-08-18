@@ -1,47 +1,68 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+typedef struct Node node;
+struct Node{
+    int data;
+    node* next;
+};
+node* getNode(){
+    node* temp = (node*)malloc(sizeof(node));
+    cout<<"Enter any value: ";
+    int val;
+    cin>>val;
+    temp->data = val;
+    temp->next = NULL;
+    return temp;
+}
+node* createList(){
+    cout<<"How many nodes: "<<endl;
+    int n;
+    cin>>n;
+    node *temp,*ptr,*head = NULL;
+    for(int i=0;i<n;i++){
+        //temp = getNode();
+        if(head==NULL){
+            head=getNode();
+            ptr = head;
+        }else{
+            ptr->next = getNode();
+            ptr = ptr->next;
+        }
+    }
+    return head;
+}
+node* merge(node* h1, node* h2)
+{
+    if (!h1)
+        return h2;
+    if (!h2)
+        return h1;
+  
+    // start with the linked list
+    // whose head data is the least
+    if (h1->data < h2->data) 
+    {
+        h1->next = merge(h1->next, h2);
+        return h1;
+    }
+    else 
+    {
+        h2->next = merge(h1, h2->next);
+        return h2;
+    }
+}
+void display(node* root){
+    while(root!=NULL){
+        cout<<root->data<<" ";
+        root = root->next;
+    }
+    cout<<endl;
+}
 int main(){
-    int ar[10],arr[10],arrfinal[20];
-    cout<<"enter the size of the 1st array: ";
-    int fst;
-    cin>>fst;
-    cout<<"enter the element of the 1st array: ";
-    for(int i = 0;i<fst;i++){
-        cin>>ar[i];
-    }
-    cout<<"First array are: ";
-    for(int i = 0;i<fst;i++){
-        cout<<ar[i]<<" ";
-    }
-    cout<<endl;
-
-    cout<<"enter the size of the 2nd array: ";
-    int snd;
-    cin>>snd;
-    cout<<"enter the element of the 2nd array: ";
-    for(int i = 0;i<snd;i++){
-        cin>>arr[i];
-    }
-    cout<<"second array are: ";
-    for(int i = 0;i<snd;i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
-
-    int index = 0;
-    int n = fst+snd;
-    for(int i = 0;i<fst;i++){
-        arrfinal[i]=ar[i];
-        index++;
-    }
-    for(int i = 0;i<snd;i++){
-        arrfinal[index]=arr[i];
-        index++;
-    }
-    cout<<"Final arrray are: ";
-    for(int i = 0;i<n;i++){
-        cout<<arrfinal[i]<<" ";
-    }
-    cout<<endl;
+    node *head1 =createList();
+    display(head1);
+    node *head2 = createList();
+    display(head2);
+    node* head3 = merge(head1,head2);
+    display(head3);
 }
