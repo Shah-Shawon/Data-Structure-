@@ -4,7 +4,7 @@ using namespace std ;
 int main() 
 {
     int n = 10, sz = 10;
-    // Deaclaring a sorted integer array
+    // Declaring a sorted integer array
     int a[12] = {1, 14, 27, 30, 43, 56, 69, 72, 85, 98};
     // Declaring a sorted string array
     string s[12] = {"Ali", "Amir", "Bashir", "Esan", "Hasan", "Jalal", "Kabir", "Liton", "Morshed", "Sojib"};
@@ -45,5 +45,16 @@ int main()
     for(int i=0;i<sz;i++){
         cout<<s[i]<<" ";
     }cout<<endl;
-    //doing the same things for insert element in specific index
+    //Insert my name at position 4
+    string myName = "Shawon";
+    int position = 4;
+    for(int i=sz;i>=position+1;i--){
+        s[i] = s[i-1];
+    }
+    s[position] = myName;
+    sz=sz+1;
+    for(int i=0;i<sz;i++){
+        cout<<s[i]<<" ";
+    }cout<<endl;
+    //doing the same things to insert an element in a specific position of an Array
 }
