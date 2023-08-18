@@ -1,0 +1,178 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Node node;
+struct Node{
+    int data;
+    node* next;
+};
+node *head=NULL,*ptr=NULL;
+node* getNode(int d){
+    node* temp = (node*)malloc(sizeof(node));
+    temp->data = d;
+    temp->next = NULL;
+    return temp;
+}
+node* createList(int arr[],int n){
+    for(int i=0;i<n;i++){
+        if(head==NULL){
+            head = getNode(arr[i]);
+            ptr = head;
+        }else{
+            ptr->next=getNode(arr[i]);
+            ptr = ptr->next;
+        }
+    }
+    return head;
+}
+//insert 1st
+node *insertFirst(int val){
+    node *temp = getNode(val);
+    temp->next = head;
+    return temp;
+}
+//insert Last
+void insertLast(int value){
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    ptr->next = getNode(value);
+    ptr = ptr->next;
+}
+//insert any position
+void insert_kth_position(int val,int pos){
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    if(pos==1){
+        node *tmp = getNode(val);
+        tmp->next = head;
+        head = tmp;
+        return;
+    }
+    node *t1,*t2;
+    t1 = head;
+    t2 = t1;
+    int i=1;
+    while(i<pos){
+        t2 = t1;
+        t1 = t1->next;
+        i++;
+    }
+    node *temp = getNode(val);
+    t2->next = temp;
+    temp->next = t1;
+}
+//delete First
+void deleteFirst(){
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    head = head->next;
+}
+//Delete Last Node
+void deleteLast(){
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    node *t1,*t2;
+    t1 = head;
+    t2 = t1;
+    while(t1->next!=NULL){
+        t2 = t1;
+        t1= t1->next;
+    }
+    t2->next = NULL;
+    free(t1);
+}
+//Delete specific node
+int delete_kth_node(int pos){
+    int i = 1;
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    node *t1,*t2;
+    t1 = head;
+    t2 = t1;
+    while(i<pos){
+        t2=t1;
+        t1 = t1 ->next;
+        i++;
+    }
+    t2->next = t1->next;
+}
+//Search node
+int searchingItem(int val){
+    int pos = 1;
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+        return -1;
+    }
+    node *temp = head;
+    while(temp!=NULL){
+        if(temp->data==val){
+            return pos;
+        }
+        pos++;
+        temp = temp->next;
+    }
+    return -1;
+}
+//sortList
+node *sortList(){
+    if(head == NULL)
+    {
+        cout<<"empty list" ;
+    }
+    node* t1 = head;
+    node *t2;
+    while(t1!=NULL){
+        t2 = t1->next;
+        while(t2!=NULL){
+            if(t2->data<t1->data){
+                int temp = t2->data;
+                t2->data = t1->data;
+                t1->data = temp;
+            }
+            t2 = t2->next;
+        }
+        t1 = t1->next;
+    }
+}
+void display(node* head){
+    while(head!=NULL){
+        cout<<head->data<<" ";
+        head=head->next;
+    }cout<<endl;
+}
+int main(){
+    int a[6] = {3, 2, 6, 42, 50, 20};
+    createList(a, 6);
+    display(head);
+    node *p=head;
+    head = insertFirst(10);
+    display(head);
+    insertLast(100);
+    display(head);
+    insert_kth_position(200,3);
+    display(head);
+    deleteFirst();
+    display(head);
+    deleteLast();
+    display(head);
+    delete_kth_node(2);
+    display(head);
+    int pos = searchingItem(6);
+    if(pos==-1){
+        cout<<"Not found"<<endl;
+    }else{
+        cout<<"found at position: "<<pos<<endl;
+    }
+    sortList();
+    display(head);
+}
