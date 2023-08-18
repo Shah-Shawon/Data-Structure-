@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int arr[10];
+int top =-1;
+void push(int n){
+    if(top==10){
+        cout<<"OverFlow"<<endl;
+        return;
+    }
+    top = top+1;
+    arr[top] = n;
+
+}
+void pop(){
+    if(top==0){
+        cout<<"Underflow"<<endl;
+        return;
+    }
+    top = top -1;
+}
+void printstk(){
+    for(int i=top;i>=0;i--){
+        cout<<arr[i]<<" ";
+    }cout<<endl;
+}
+int main(){
+    push(10);
+    push(20);
+    push(30);
+    printstk();
+    pop();
+    pop();
+    printstk();
+}
+
+
