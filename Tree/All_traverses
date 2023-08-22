@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+ typedef struct Node node;
+ struct Node{
+    int data;
+    node *left =NULL,*right = NULL;
+ };
+
+ node *getNode(int item){
+    node *t = (node*)malloc(sizeof(node));
+    t->data = item;
+    t->left = NULL;
+    t->right = NULL;
+    return t;
+ }
+node *insertNode(node* root,int item){
+    if(root == NULL){
+        root = getNode(item);
+        return root;
+    }if(root->data==item){
+        return root;
+    }if(item<=root->data){
+        root->left = insertNode(root->left,item);
+    }else{
+        root->right = insertNode(root->right,item);
+    }
+}
+void create(node* &root){
+    cout<<"Enter the number of nodes: ";
+    int num;
+    cin>>num;
+
+    for(int i=0;i<num;i++){
+        cout<<"Enter the data: ";
+        int d;
+        cin>>d;
+        if(root == NULL ) root = insertNode(root,d);
+        else    insertNode(root,d);
+    }
+}
+void preorder(node *root){
+    if(root == NULL) return;
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
+void inorder(node *root){
+    if(root == NULL) return;
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+void postOrder(node* root){
+    if(root == NULL) return;
+    postOrder(root->left);
+    postOrder(root->right);
+    cout<<root->data<<" ";
+}
+int main(){
+   node *root = NULL;
+   create(root);
+   cout<<endl;
+
+   cout<<"Inorder: ";
+   inorder(root);
+   cout<<endl;
+
+   cout<<"preorder: ";
+   preorder(root);
+   cout<<endl;
+
+   cout<<"Postorder: ";
+   postOrder(root);
+   cout<<endl; 
+}
